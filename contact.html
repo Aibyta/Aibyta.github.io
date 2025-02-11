@@ -120,34 +120,34 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-12 wow fadeInUp" data-wow-delay="0.5s" style="width: 750px;">
-                    <form id="form">
+                    <form id="form" method="POST" name="google-sheet">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                    <input type="text" class="form-control" id="name" placeholder="Your Name" name="Name">
                                     <label for="name">Your Name</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                    <input type="email" class="form-control" id="email" placeholder="Your Email" name="Email">
                                     <label for="email">Your Email</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                    <input type="text" class="form-control" id="subject" placeholder="Subject" name="Subject">
                                     <label for="subject">Subject</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 150px"></textarea>
+                                    <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 150px" name="Message"></textarea>
                                     <label for="message">Message</label>
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit" id="submit">Send Message</button>
+                                <button class="btn btn-primary w-100 py-3" type="submit" id="submit" name="Submit">Send Message</button>
                             </div>
                         </div>
                     </form>
@@ -245,22 +245,17 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    <script>const form = document.querySelector("form")
-            const submitButton = document.querySelector("submit")
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxskO95DVk5GkxvPArrGRJd5iGEzz5Pp2kX4NLQG7HWV8cw2xvG-SYYnKtgtQH7FyX83w/exec'
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbye_21KAFEIVVWArUOtDtB-88rGtdijKGB9R_u8ma7UQtWknPF6X3YEFbS6DvipVA_5Hw/exec'
+        const form = document.forms['google-sheet']
 
-            form.addEventListener('submit', e => {
-            submitButton.disabled = true
+        form.addEventListener('submit' , e => {
             e.preventDefault()
-            let requestBody = new FormData(form)
-            fetch(scriptURL, { method: 'POST', body: requestBody})
-            .then(response => {
-            alert('Success!', response)
-            submitButton.disabled = false
-            })
-            .catch(error => {
-            alert('Error!', error.message)
-            submitButton.disabled = false})</script>
+            fetch(scriptURL, {method: 'POST', body: new FormData(form)})
+            .then(response => alert("Thanks for Contacting us..! We Will Contact You Soon..."))
+            .catch(error => console.error('Error!', error.message))
+        })
+    </script>
 </body>
 
 </html>
